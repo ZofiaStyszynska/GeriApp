@@ -17,6 +17,7 @@ public class Patient {
     private String id;
     private int age;
     private Sex sex;
+    private double weight;
     @ManyToMany
     private Set<Medicine> takenMedicines = new HashSet<>();
 

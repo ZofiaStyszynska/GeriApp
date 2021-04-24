@@ -16,8 +16,9 @@ public class Medicine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String medId;
-    @Column
     private String tradeName;
+    private String dosage;
+    private String formulation;
     @ManyToMany (mappedBy = "medicines")
     private Set<ActiveSubst> activeSubsts = new HashSet<>();
     private boolean foodInteraction;
