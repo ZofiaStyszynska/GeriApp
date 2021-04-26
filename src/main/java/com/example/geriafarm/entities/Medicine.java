@@ -19,7 +19,7 @@ public class Medicine {
     private String tradeName;
     private String dosage;
     private String formulation;
-    @ManyToMany (mappedBy = "medicines")
+    @ManyToMany
     private Set<ActiveSubst> activeSubsts = new HashSet<>();
     private boolean foodInteraction;
 

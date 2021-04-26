@@ -15,11 +15,10 @@ public class ActiveSubst {
     private String id;
     private String name;
     private String ATC;
-    @ManyToMany
-    @JoinTable (name = "medicines_and_substances")
-    private Set<Medicine> medicines = new HashSet<>();
-    @ManyToOne
-    private GroupOfMedicines group;
+//    @ManyToMany
+//    @JoinTable (name = "medicines_and_substances")
+//    private Set<Medicine> medicines = new HashSet<>();
+
 
 
 }
