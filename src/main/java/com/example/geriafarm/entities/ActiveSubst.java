@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -12,7 +13,8 @@ public class ActiveSubst {
 
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     private String name;
     private String ATC;
 //    @ManyToMany

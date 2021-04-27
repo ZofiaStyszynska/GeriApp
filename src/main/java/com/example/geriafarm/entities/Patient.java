@@ -3,18 +3,18 @@ package com.example.geriafarm.entities;
 import com.example.geriafarm.enums.Sex;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Data
 public class Patient {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     private int age;
     private Sex sex;
     private double weight;
