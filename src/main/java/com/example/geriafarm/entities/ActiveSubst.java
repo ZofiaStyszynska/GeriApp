@@ -3,8 +3,6 @@ package com.example.geriafarm.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -16,7 +14,8 @@ public class ActiveSubst {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
-    private String ATC;
+    @Embedded
+    private ATC atc;
 //    @ManyToMany
 //    @JoinTable (name = "medicines_and_substances")
 //    private Set<Medicine> medicines = new HashSet<>();
