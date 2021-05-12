@@ -18,15 +18,15 @@ public class ATC {
     private UUID id;
     private String ATCid;
 
-    String getAnatomicalGroup(ATC atc) {
+    public String getAnatomicalGroup(ATC atc) {
         return atc.getATCid().substring(0, 1);
     }
 
-    String getTherapeuticSubgroup(ATC atc) {
+    public String getTherapeuticSubgroup(ATC atc) {
         return atc.getATCid().substring(1, 3);
     }
 
-    String getPharmacologicalSubgroup(ATC atc) {
+    public String getPharmacologicalSubgroup(ATC atc) {
         if (atc.getATCid().length() > 3) {
             return atc.getATCid().substring(3, 4);
         }

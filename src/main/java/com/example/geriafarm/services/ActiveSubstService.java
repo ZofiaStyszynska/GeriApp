@@ -1,5 +1,6 @@
 package com.example.geriafarm.services;
 
+import com.example.geriafarm.DTO.ATCdto;
 import com.example.geriafarm.DTO.ActiveSubstDTO;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface ActiveSubstService {
     ActiveSubstDTO getSubstance(UUID id);
     ActiveSubstDTO updateSubstance(UUID id, ActiveSubstDTO activeSubstDTO);
     List <ActiveSubstDTO> getSubstancesByMedicine(UUID medicineId);
+    List<ActiveSubstDTO> getSubstancesByAnatomicalGroup(ATCdto atcDto);
+    List<ActiveSubstDTO> getSubstancesByTherapeuticSubgroup(ATCdto atcDto);
 }
