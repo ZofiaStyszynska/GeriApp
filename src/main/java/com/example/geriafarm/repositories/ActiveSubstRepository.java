@@ -10,4 +10,6 @@ import java.util.UUID;
 public interface ActiveSubstRepository extends JpaRepository<ActiveSubst, UUID> {
 
 
+    List<ActiveSubst> findActiveSubstsByAtcAnatomicalGrEquals(String anatomicalGroup);
+    List<ActiveSubst> findActiveSubstsByAtc_AnatomicalGrAndAtc_TherapeutSubgr(String anatomicalGroup, String therapeutSubgroup);
 }
