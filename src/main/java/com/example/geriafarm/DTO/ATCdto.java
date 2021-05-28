@@ -1,12 +1,10 @@
 package com.example.geriafarm.DTO;
 
 import com.example.geriafarm.entities.ATC;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 import org.springframework.lang.Nullable;
-
 @Value
-@Builder
+@Builder(access = AccessLevel.PUBLIC)
 public class ATCdto {
 
     String anatomicalGr;
