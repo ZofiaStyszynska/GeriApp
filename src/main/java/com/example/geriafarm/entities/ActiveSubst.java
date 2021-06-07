@@ -14,7 +14,7 @@ public class ActiveSubst {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
-    @Embedded
+    @OneToOne
     private ATC atc;
 //    @ManyToMany
 //    @JoinTable (name = "medicines_and_substances")

@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class DefaultPatienService implements PatientService {
+public class DefaultPatientService implements PatientService {
 
     private final PatientRepository patientRepository;
     private final MedicineRepository medicineRepository;
 
-    public DefaultPatienService(PatientRepository patientRepository, MedicineRepository medicineRepository) {
+    public DefaultPatientService(PatientRepository patientRepository, MedicineRepository medicineRepository) {
         this.patientRepository = patientRepository;
         this.medicineRepository = medicineRepository;
     }

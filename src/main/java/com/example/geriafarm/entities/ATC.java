@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Embeddable
+//@Embeddable
 public class ATC {
 
     @Id
