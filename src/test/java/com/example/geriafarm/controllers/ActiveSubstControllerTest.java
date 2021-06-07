@@ -15,16 +15,16 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 public class ActiveSubstControllerTest {
 
-//    @Autowired
-//    private MockMvc mockMvc;
-//
-//    @MockBean
-//    private ATCService atcService;
+    @Autowired
+    private MockMvc mockMvc;
 
-//    ActiveSubstDTO activeSubstDTO = new ActiveSubstDTO("furosemid", ATCdto.builder()
-//            .anatomicalGr("C")
-//            .therapeutSubgr("03")
-//            .chemicalSubgr("C")
-//            .pharmacolSubgr("A")
-//            .build());
+    @MockBean
+    private ATCService atcService;
+
+    ActiveSubstDTO activeSubstDTO = new ActiveSubstDTO("furosemid", ATCdto.builder()
+            .anatomicalGr("C")
+            .therapeutSubgr("03")
+            .chemicalSubgr("C")
+            .pharmacolSubgr("A")
+            .build());
 }
