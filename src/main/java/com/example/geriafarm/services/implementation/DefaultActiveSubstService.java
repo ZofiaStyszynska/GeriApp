@@ -32,14 +32,14 @@ public class DefaultActiveSubstService implements ActiveSubstService {
     public UUID addSubstance(ActiveSubstDTO activeSubstDTO) {
         ATC atc = new ATC();
         atc.setAnatomicalGr(activeSubstDTO.getAtc().getAnatomicalGr());
+        atc.setTherapeutSubgr(activeSubstDTO.getAtc().getTherapeutSubgr());
+        atc.setPharmacolSubgr(activeSubstDTO.getAtc().getPharmacolSubgr());
+        atc.setChemicalSubgr(activeSubstDTO.getAtc().getChemicalSubgr());
+        atc.setChemicalSubst(activeSubstDTO.getAtc().getChemicalSubst());
         final ActiveSubst activeSubst = activeSubstRepository.saveAndFlush(new ActiveSubst(null,
-                activeSubstDTO.getName(),
-                new ATC(null, activeSubstDTO.getAtc().getAnatomicalGr(),
-                        activeSubstDTO.getAtc().getTherapeutSubgr(),
-                        activeSubstDTO.getAtc().getPharmacolSubgr(),
-                        activeSubstDTO.getAtc().getChemicalSubgr(),
-                        activeSubstDTO.getAtc().getChemicalSubst()))
-                );
+                activeSubstDTO.getName(), atc)
+
+        );
 
         return activeSubst.getId();
     }

@@ -18,7 +18,7 @@ public class ActiveSubst {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private ATC atc;
 //    @ManyToMany
 //    @JoinTable (name = "medicines_and_substances")
