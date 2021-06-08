@@ -2,6 +2,8 @@ package com.example.geriafarm.services.implementation;
 
 import com.example.geriafarm.DTO.ATCdto;
 import com.example.geriafarm.DTO.ActiveSubstDTO;
+import com.example.geriafarm.entities.ATC;
+import com.example.geriafarm.entities.ActiveSubst;
 import com.example.geriafarm.repositories.ATCRepository;
 import com.example.geriafarm.repositories.ActiveSubstRepository;
 import com.example.geriafarm.services.ActiveSubstService;
@@ -27,8 +29,19 @@ public class DefaultActiveSubstService implements ActiveSubstService {
     }
 
     @Override
-    public ActiveSubstDTO addSubstance(ActiveSubstDTO activeSubstDTO) {
-        return null;
+    public UUID addSubstance(ActiveSubstDTO activeSubstDTO) {
+        ATC atc = new ATC();
+        atc.setAnatomicalGr(activeSubstDTO.getAtc().getAnatomicalGr());
+        final ActiveSubst activeSubst = activeSubstRepository.saveAndFlush(new ActiveSubst(null,
+                activeSubstDTO.getName(),
+                new ATC(null, activeSubstDTO.getAtc().getAnatomicalGr(),
+                        activeSubstDTO.getAtc().getTherapeutSubgr(),
+                        activeSubstDTO.getAtc().getPharmacolSubgr(),
+                        activeSubstDTO.getAtc().getChemicalSubgr(),
+                        activeSubstDTO.getAtc().getChemicalSubst()))
+                );
+
+        return activeSubst.getId();
     }
 
     @Override

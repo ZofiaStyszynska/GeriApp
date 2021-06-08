@@ -1,8 +1,6 @@
 package com.example.geriafarm.entities;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -10,7 +8,8 @@ import java.util.UUID;
 
 @Entity
 @Data
-//@Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
 public class ATC {
 
     @Id

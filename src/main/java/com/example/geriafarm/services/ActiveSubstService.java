@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface ActiveSubstService {
 
     List<ActiveSubstDTO> getSubstances();
-    ActiveSubstDTO addSubstance(ActiveSubstDTO activeSubstDTO);
+    UUID addSubstance(ActiveSubstDTO activeSubstDTO);
     ActiveSubstDTO getSubstance(UUID id);
     ActiveSubstDTO updateSubstance(UUID id, ActiveSubstDTO activeSubstDTO);
     List <ActiveSubstDTO> getSubstancesByMedicine(UUID medicineId);
