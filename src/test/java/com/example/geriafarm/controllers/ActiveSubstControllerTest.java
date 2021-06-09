@@ -24,10 +24,6 @@ public class ActiveSubstControllerTest {
     @MockBean
     private ActiveSubstService activeSubstService;
 
-    ActiveSubstDTO activeSubstDTO = new ActiveSubstDTO("furosemid", ATCdto.builder()
-            .anatomicalGr("C")
-            .therapeutSubgr("03")
-            .chemicalSubgr("C")
-            .pharmacolSubgr("A")
-            .build());
+    ActiveSubstDTO activeSubstDTO = new ActiveSubstDTO("furosemid", ATCdto.builder().atcDto("C03CA01").build()
+           );
 }

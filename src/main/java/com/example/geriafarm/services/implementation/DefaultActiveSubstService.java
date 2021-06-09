@@ -29,16 +29,22 @@ public class DefaultActiveSubstService implements ActiveSubstService {
         return null;
     }
 
+    public static ATC createATCEntity(ATCdto atcDto) {
+        ATC atcEntity = new ATC();
+        atcEntity.setAnatomicalGr(atcDto.getAtcDto().substring(0, 1));
+        atcEntity.setTherapeutSubgr(atcDto.getAtcDto().substring(1, 3));
+        atcEntity.setPharmacolSubgr(atcDto.getAtcDto().substring(3, 4));
+        atcEntity.setChemicalSubgr(atcDto.getAtcDto().substring(4, 5));
+        atcEntity.setChemicalSubst(atcDto.getAtcDto().substring(5));
+        return atcEntity;
+    }
+
     @Override
     public UUID addSubstance(ActiveSubstDTO activeSubstDTO) {
-        ATC atc = new ATC();
-        atc.setAnatomicalGr(activeSubstDTO.getAtc().getAnatomicalGr());
-        atc.setTherapeutSubgr(activeSubstDTO.getAtc().getTherapeutSubgr());
-        atc.setPharmacolSubgr(activeSubstDTO.getAtc().getPharmacolSubgr());
-        atc.setChemicalSubgr(activeSubstDTO.getAtc().getChemicalSubgr());
-        atc.setChemicalSubst(activeSubstDTO.getAtc().getChemicalSubst());
-        final ActiveSubst activeSubst = activeSubstRepository.saveAndFlush(new ActiveSubst(null,
-                activeSubstDTO.getName(), atc)
+
+
+        final ActiveSubst activeSubst = activeSubstRepository.saveAndFlush(new ActiveSubst(null, activeSubstDTO.getName(), createATCEntity(activeSubstDTO.getAtc())
+                )
 
         );
 
