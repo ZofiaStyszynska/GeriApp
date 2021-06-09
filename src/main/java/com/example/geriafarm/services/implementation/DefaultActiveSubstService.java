@@ -10,6 +10,7 @@ import com.example.geriafarm.services.ActiveSubstService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -45,12 +46,13 @@ public class DefaultActiveSubstService implements ActiveSubstService {
     }
 
     @Override
-    public ActiveSubstDTO getSubstance(UUID id) {
-        return null;
+    public Optional<ActiveSubstDTO> getSubstanceById(String id) {
+        return activeSubstRepository.findById(UUID.fromString(id)).map(ActiveSubstDTO::fromActiveSubstEnt);
+
     }
 
     @Override
-    public ActiveSubstDTO updateSubstance(UUID id, ActiveSubstDTO activeSubstDTO) {
+    public ActiveSubstDTO updateSubstance(String id, ActiveSubstDTO activeSubstDTO) {
         return null;
     }
 
