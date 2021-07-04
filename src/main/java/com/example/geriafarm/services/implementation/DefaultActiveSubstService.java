@@ -29,7 +29,7 @@ public class DefaultActiveSubstService implements ActiveSubstService {
         return null;
     }
 
-    public static ATC createATCEntity(ATCdto atcDto) {
+    public static ATC createATCEntity(ATCdto atcDto) { //metoda przepisuje dane z frontendu(ATCdto) do poszczególnych pól w bazie danych
         ATC atcEntity = new ATC();
         atcEntity.setAnatomicalGr(atcDto.getAtcDto().substring(0, 1));
         atcEntity.setTherapeutSubgr(atcDto.getAtcDto().substring(1, 3));

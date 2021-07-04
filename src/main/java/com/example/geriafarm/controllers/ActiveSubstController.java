@@ -21,12 +21,13 @@ public class ActiveSubstController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> addActiveSubst (@RequestBody ActiveSubstDTO activeSubstDTO) throws GeriaException, URISyntaxException {
+    public ResponseEntity<ActiveSubstDTO> addActiveSubst (@RequestBody ActiveSubstDTO activeSubstDTO) throws GeriaException, URISyntaxException {
         UUID activeSubstId = activeSubstService.addSubstance(activeSubstDTO);
 
         return ResponseEntity
                 .created(new URI("/activesubstances/" + activeSubstId))
-                .build();
+                .body(activeSubstDTO);
+
     }
 
 

@@ -5,7 +5,7 @@ import lombok.*;
 import org.springframework.lang.Nullable;
 
 @Value
-@Builder(access = AccessLevel.PUBLIC)
+//@Builder(access = AccessLevel.PUBLIC)
 public class ATCdto {
 
     String atcDto;
