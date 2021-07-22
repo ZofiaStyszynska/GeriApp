@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.UUID;
+import java.util.List;
 
 @RestController
 @RequestMapping("/activesubstances")
@@ -22,13 +22,17 @@ public class ActiveSubstController {
 
     @PostMapping
     public ResponseEntity<ActiveSubstDTO> addActiveSubst (@RequestBody ActiveSubstDTO activeSubstDTO) throws GeriaException, URISyntaxException {
-        UUID activeSubstId = activeSubstService.addSubstance(activeSubstDTO);
+        Long activeSubstId = activeSubstService.addSubstance(activeSubstDTO);
 
         return ResponseEntity
                 .created(new URI("/activesubstances/" + activeSubstId))
                 .body(activeSubstDTO);
 
     }
+    @GetMapping
+    public List <ActiveSubstDTO> getActiveSubsts(){
+    return activeSubstService.getSubstances();
+    };
 
 
 }

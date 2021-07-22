@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultActiveSubstService implements ActiveSubstService {
@@ -25,8 +26,11 @@ public class DefaultActiveSubstService implements ActiveSubstService {
     }
 
     @Override
-    public List<ActiveSubstDTO> getSubstances() {
-        return null;
+    public List<ActiveSubstDTO> getSubstances() { //podaje listę wszystkich aktywnych substancji
+        final List<ActiveSubstDTO> activeSubstDTOs = activeSubstRepository.findAll()
+                .stream().map(ActiveSubstDTO::fromActiveSubstEnt)
+                .collect(Collectors.toList());
+        return activeSubstDTOs;
     }
 
     public static ATC createATCEntity(ATCdto atcDto) { //metoda przepisuje dane z frontendu(ATCdto) do poszczególnych pól w bazie danych
@@ -40,10 +44,11 @@ public class DefaultActiveSubstService implements ActiveSubstService {
     }
 
     @Override
-    public UUID addSubstance(ActiveSubstDTO activeSubstDTO) {
+    public Long addSubstance(ActiveSubstDTO activeSubstDTO) {
 
 
-        final ActiveSubst activeSubst = activeSubstRepository.saveAndFlush(new ActiveSubst(null, activeSubstDTO.getName(), createATCEntity(activeSubstDTO.getAtc())
+        final ActiveSubst activeSubst = activeSubstRepository
+                .saveAndFlush(new ActiveSubst(null, activeSubstDTO.getName(), createATCEntity(activeSubstDTO.getAtc())
                 )
 
         );
@@ -52,18 +57,19 @@ public class DefaultActiveSubstService implements ActiveSubstService {
     }
 
     @Override
-    public Optional<ActiveSubstDTO> getSubstanceById(String id) {
-        return activeSubstRepository.findById(UUID.fromString(id)).map(ActiveSubstDTO::fromActiveSubstEnt);
+    public Optional<ActiveSubstDTO> getSubstanceById(Long id) {
+        return activeSubstRepository.findById(id).map(ActiveSubstDTO::fromActiveSubstEnt);
 
     }
 
     @Override
-    public ActiveSubstDTO updateSubstance(String id, ActiveSubstDTO activeSubstDTO) {
+    public ActiveSubstDTO updateSubstance(Long id, ActiveSubstDTO activeSubstDTO) {
         return null;
     }
 
     @Override
-    public List<ActiveSubstDTO> getSubstancesByMedicine(UUID medicineId) {
+    public List<ActiveSubstDTO> getSubstancesByMedicine(Long medicineId) {
+
         return null;
     }
 

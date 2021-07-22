@@ -11,13 +11,13 @@ public interface ActiveSubstService {
 
     List<ActiveSubstDTO> getSubstances();
 
-    UUID addSubstance(ActiveSubstDTO activeSubstDTO);
+    Long addSubstance(ActiveSubstDTO activeSubstDTO);
 
-    Optional<ActiveSubstDTO> getSubstanceById(String id);
+    Optional<ActiveSubstDTO> getSubstanceById(Long id);
 
-    ActiveSubstDTO updateSubstance(String id, ActiveSubstDTO activeSubstDTO);
+    ActiveSubstDTO updateSubstance(Long id, ActiveSubstDTO activeSubstDTO);
 
-    List<ActiveSubstDTO> getSubstancesByMedicine(UUID medicineId);
+    List<ActiveSubstDTO> getSubstancesByMedicine(Long medicineId);
 
     List<ActiveSubstDTO> getSubstancesByAnatomicalGroup(ATCdto atcDto);
 

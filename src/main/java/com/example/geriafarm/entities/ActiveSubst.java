@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -16,7 +15,8 @@ public class ActiveSubst {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
+    @Column(unique=true)
     private String name;
     @OneToOne(cascade = {CascadeType.ALL})
     private ATC atc;

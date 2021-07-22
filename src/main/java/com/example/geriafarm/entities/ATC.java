@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -14,7 +13,7 @@ public class ATC {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
     private String anatomicalGr;
     private String therapeutSubgr;
     private String pharmacolSubgr;

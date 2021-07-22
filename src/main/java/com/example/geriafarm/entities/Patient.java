@@ -6,7 +6,6 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -14,11 +13,13 @@ public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
     private int age;
     private Sex sex;
     private double weight;
     @ManyToMany
     private Set<Medicine> takenMedicines = new HashSet<>();
+    //TODO choroby wg klas. ICD10
+    //TODO poziom kreatyniny
 
 }

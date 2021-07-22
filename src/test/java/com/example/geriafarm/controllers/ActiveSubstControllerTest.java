@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 import static java.lang.String.format;
@@ -42,14 +43,16 @@ public class ActiveSubstControllerTest {
     @Autowired
     ActiveSubstRepository activeSubstRepository;
 
-
+    final String testName = "furosemid";
+    final ATC testATC = new ATC(null, "C","03","C","A","01");
+    final ATCdto testATCdto = new ATCdto("C03CA01");
     @Test
     @Transactional
     void shouldAddActiveSubstance() throws Exception {
-        final UUID id = new UUID(1234,567);
-        final String testName = "furosemid";
+        final Long id = 1L;
+
         final String atcDTOTest = "C03CA01";
-        final ATC testATC = new ATC(null, "C","03","C","A","01");
+
         final ActiveSubst activeSubstTest = new ActiveSubst(id,testName, testATC);
 
         when(activeSubstService.addSubstance(any(ActiveSubstDTO.class))).thenReturn(activeSubstTest.getId());
@@ -62,6 +65,11 @@ public class ActiveSubstControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", is(testName)))
                 .andExpect(jsonPath("$.atc.atcDto", is(atcDTOTest)));
+
+    }
+    @Test
+    void shouldListAllActiveSubstances() throws Exception{
+        when (activeSubstService.getSubstances()).thenReturn(List.of(new ActiveSubstDTO("furosemid", testATCdto)));
 
     }
 }

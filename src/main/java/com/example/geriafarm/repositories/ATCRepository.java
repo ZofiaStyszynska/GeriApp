@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface ATCRepository extends JpaRepository<ATC, UUID>{
+public interface ATCRepository extends JpaRepository<ATC, Long>{
 
 
 }
