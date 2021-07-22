@@ -19,6 +19,8 @@ public class Patient {
     private double weight;
     @ManyToMany
     private Set<Medicine> takenMedicines = new HashSet<>();
+    @ManyToMany
+    private Set<ICD10> diseases = new HashSet<>();
     //TODO choroby wg klas. ICD10
     //TODO poziom kreatyniny
 
