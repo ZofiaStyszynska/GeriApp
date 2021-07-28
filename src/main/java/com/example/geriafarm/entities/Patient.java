@@ -15,12 +15,14 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int age;
+    @Enumerated (EnumType.STRING)
     private Sex sex;
     private double weight;
     @ManyToMany
     private Set<Medicine> takenMedicines = new HashSet<>();
     @ManyToMany
     private Set<ICD10> diseases = new HashSet<>();
+    private double creatinineLevel;
     //TODO choroby wg klas. ICD10
     //TODO poziom kreatyniny
 

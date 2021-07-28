@@ -2,6 +2,7 @@ package com.example.geriafarm.services;
 
 import com.example.geriafarm.DTO.ATCdto;
 import com.example.geriafarm.DTO.ActiveSubstDTO;
+import com.example.geriafarm.exceptions.GeriaException;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +12,7 @@ public interface ActiveSubstService {
 
     List<ActiveSubstDTO> getSubstances();
 
-    Long addSubstance(ActiveSubstDTO activeSubstDTO);
+    Long addSubstance(ActiveSubstDTO activeSubstDTO) throws GeriaException;
 
     Optional<ActiveSubstDTO> getSubstanceById(Long id);
 

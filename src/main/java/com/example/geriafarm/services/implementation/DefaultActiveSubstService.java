@@ -4,10 +4,13 @@ import com.example.geriafarm.DTO.ATCdto;
 import com.example.geriafarm.DTO.ActiveSubstDTO;
 import com.example.geriafarm.entities.ATC;
 import com.example.geriafarm.entities.ActiveSubst;
+import com.example.geriafarm.exceptions.GeriaException;
 import com.example.geriafarm.repositories.ATCRepository;
 import com.example.geriafarm.repositories.ActiveSubstRepository;
 import com.example.geriafarm.services.ActiveSubstService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,14 +47,13 @@ public class DefaultActiveSubstService implements ActiveSubstService {
     }
 
     @Override
-    public Long addSubstance(ActiveSubstDTO activeSubstDTO) {
-
+    public Long addSubstance(ActiveSubstDTO activeSubstDTO) throws GeriaException {
 
         final ActiveSubst activeSubst = activeSubstRepository
                 .saveAndFlush(new ActiveSubst(null, activeSubstDTO.getName(), createATCEntity(activeSubstDTO.getAtc())
-                )
+                        )
 
-        );
+                );
 
         return activeSubst.getId();
     }

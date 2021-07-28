@@ -14,7 +14,7 @@ public class MedicineDTO {
 
     String tradeName;
     String dosage;
-    String formulation;
+    String routeOfAdministration;
     Set<ActiveSubstDTO> activeSubsts;
     boolean foodInteraction;
 
@@ -22,7 +22,7 @@ public class MedicineDTO {
        return new MedicineDTO(
                medicine.getTradeName(),
                medicine.getDosage(),
-               medicine.getFormulation(),
+               medicine.getRouteOfAdministration(),
                medicine.getActiveSubsts().stream().map(ActiveSubstDTO::fromActiveSubstEnt).collect(Collectors.toSet()),
                medicine.isFoodInteraction());
     }

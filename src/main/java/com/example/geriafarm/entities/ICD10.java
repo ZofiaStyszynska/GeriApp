@@ -19,7 +19,7 @@ public class ICD10 {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Nullable
-    private String name;
+    private String nameOfDisease;
     private String ICD10;
 
 }

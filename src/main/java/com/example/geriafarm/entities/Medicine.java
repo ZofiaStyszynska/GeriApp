@@ -14,7 +14,7 @@ public class Medicine {
     private Long medId;
     private String tradeName;
     private String dosage;
-    private String formulation; //TODO zamienić na drogę podania
+    private String routeOfAdministration;
     @ManyToMany
     private Set<ActiveSubst> activeSubsts = new HashSet<>();
     private boolean foodInteraction; //TODO sprawdzić wyszukiwarkę i jak ją podłączyć - "Kto ma lek"
