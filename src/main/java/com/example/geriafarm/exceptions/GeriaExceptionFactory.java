@@ -8,4 +8,7 @@ public class GeriaExceptionFactory {
     public static GeriaException createMedicineNotFoundException(String message){
         return new MedicineNotFoundException(message);
     }
+    public static GeriaException createSubstAlreadyExistsException(String message){
+        return new SubstanceAlreadyExistsException(message);
+    }
 }

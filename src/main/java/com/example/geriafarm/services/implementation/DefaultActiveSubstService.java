@@ -5,6 +5,8 @@ import com.example.geriafarm.DTO.ActiveSubstDTO;
 import com.example.geriafarm.entities.ATC;
 import com.example.geriafarm.entities.ActiveSubst;
 import com.example.geriafarm.exceptions.GeriaException;
+import com.example.geriafarm.exceptions.GeriaExceptionFactory;
+import com.example.geriafarm.exceptions.SubstanceAlreadyExistsException;
 import com.example.geriafarm.repositories.ATCRepository;
 import com.example.geriafarm.repositories.ActiveSubstRepository;
 import com.example.geriafarm.services.ActiveSubstService;
@@ -46,8 +48,11 @@ public class DefaultActiveSubstService implements ActiveSubstService {
         return atcEntity;
     }
 
+    private static GeriaException getSubstAlreadyExistsExeption(){
+        return GeriaExceptionFactory.createSubstAlreadyExistsException("ATC code already exists");
+    }
     @Override
-    public Long addSubstance(ActiveSubstDTO activeSubstDTO) throws GeriaException {
+    public Long addSubstance(ActiveSubstDTO activeSubstDTO) throws SubstanceAlreadyExistsException {
 
         final ActiveSubst activeSubst = activeSubstRepository
                 .saveAndFlush(new ActiveSubst(null, activeSubstDTO.getName(), createATCEntity(activeSubstDTO.getAtc())
@@ -60,13 +65,22 @@ public class DefaultActiveSubstService implements ActiveSubstService {
 
     @Override
     public Optional<ActiveSubstDTO> getSubstanceById(Long id) {
-        return activeSubstRepository.findById(id).map(ActiveSubstDTO::fromActiveSubstEnt);
+        return activeSubstRepository.findById(id).map(ActiveSubstDTO::fromActiveSubstEnt)
+                ;
 
     }
 
     @Override
     public ActiveSubstDTO updateSubstance(Long id, ActiveSubstDTO activeSubstDTO) {
         return null;
+    }
+
+    @Override
+    public ActiveSubstDTO getSubstanceByATC(ATCdto atcDto) {
+        ATC atc = createATCEntity(atcDto);
+//        return activeSubstRepository.findActiveSubstsByAtc_AnatomicalGrAndAtc_TherapeutSubgrAndAtc_PharmacolSubgr(atc.getAnatomicalGr(),
+//                atc.getTherapeutSubgr(), atc.getPharmacolSubgr());
+        return null; //TODO
     }
 
     @Override
