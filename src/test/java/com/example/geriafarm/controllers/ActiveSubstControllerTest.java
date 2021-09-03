@@ -44,7 +44,7 @@ public class ActiveSubstControllerTest {
     ActiveSubstRepository activeSubstRepository;
 
     final String testName = "furosemid";
-    final ATC testATC = new ATC(null, "C","03","C","A","01");
+    final String testATC = "C03CA01";
     final ATCdto testATCdto = new ATCdto("C03CA01");
     @Test
     @Transactional
@@ -69,7 +69,7 @@ public class ActiveSubstControllerTest {
     }
     @Test
     void shouldListAllActiveSubstances() throws Exception{
-        when (activeSubstService.getSubstances()).thenReturn(List.of(new ActiveSubstDTO("furosemid", testATCdto)));
+        when (activeSubstService.getSubstances()).thenReturn(List.of(new ActiveSubstDTO("furosemid", testATC)));
 
     }
 }

@@ -11,13 +11,13 @@ public class ActiveSubstDTO {
 
 
     String name;
-    ATCdto atc;
+    String atcCode;
 
 
     public static ActiveSubstDTO fromActiveSubstEnt(ActiveSubst activeSubst) {
         return new ActiveSubstDTO(
                 activeSubst.getName(),
-                ATCdto.fromATCEntity(activeSubst.getAtc())
+                activeSubst.getAtcCode()
 
         );
 

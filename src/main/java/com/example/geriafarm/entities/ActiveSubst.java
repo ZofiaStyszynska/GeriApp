@@ -16,10 +16,9 @@ public class ActiveSubst {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(unique=true)
     private String name;
-    @OneToOne(cascade = {CascadeType.ALL})
-    private ATC atc;
+    @Column(unique=true)
+    private String atcCode;
 //    @ManyToMany
 //    @JoinTable (name = "medicines_and_substances")
 //    private Set<Medicine> medicines = new HashSet<>();

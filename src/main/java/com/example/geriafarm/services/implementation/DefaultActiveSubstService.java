@@ -10,13 +10,10 @@ import com.example.geriafarm.exceptions.SubstanceAlreadyExistsException;
 import com.example.geriafarm.repositories.ATCRepository;
 import com.example.geriafarm.repositories.ActiveSubstRepository;
 import com.example.geriafarm.services.ActiveSubstService;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,8 +52,8 @@ public class DefaultActiveSubstService implements ActiveSubstService {
     public Long addSubstance(ActiveSubstDTO activeSubstDTO) throws SubstanceAlreadyExistsException {
 
         final ActiveSubst activeSubst = activeSubstRepository
-                .saveAndFlush(new ActiveSubst(null, activeSubstDTO.getName(), createATCEntity(activeSubstDTO.getAtc())
-                        )
+                .saveAndFlush(new ActiveSubst(null, activeSubstDTO.getName(), activeSubstDTO.getAtcCode()
+                        ) //TODO sprawdzić, czy to w ogóle ma sens
 
                 );
 
