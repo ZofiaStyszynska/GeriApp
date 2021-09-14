@@ -19,9 +19,7 @@ public class ActiveSubst {
     private String name;
     @Column(unique=true)
     private String atcCode;
-//    @ManyToMany
-//    @JoinTable (name = "medicines_and_substances")
-//    private Set<Medicine> medicines = new HashSet<>();
+
 
 
 

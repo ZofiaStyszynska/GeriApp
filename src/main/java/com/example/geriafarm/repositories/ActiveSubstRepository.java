@@ -9,5 +9,5 @@ import java.util.UUID;
 
 public interface ActiveSubstRepository extends JpaRepository<ActiveSubst, Long> {
 
-
+ActiveSubst findActiveSubstsByNameEquals(String activeSubstName);
 }

@@ -21,6 +21,7 @@ public class DefaultActiveSubstService implements ActiveSubstService {
 
     private final ActiveSubstRepository activeSubstRepository;
     private final ATCRepository atcRepository;
+    private final String BETA_BLOCKER_CODE = "CO7";
 
     public DefaultActiveSubstService(ActiveSubstRepository activeSubstRepository, ATCRepository atcRepository) {
         this.activeSubstRepository = activeSubstRepository;
@@ -45,9 +46,10 @@ public class DefaultActiveSubstService implements ActiveSubstService {
         return atcEntity;
     }
 
-    private static GeriaException getSubstAlreadyExistsExeption(){
+    private static GeriaException getSubstAlreadyExistsExeption() {
         return GeriaExceptionFactory.createSubstAlreadyExistsException("ATC code already exists");
     }
+
     @Override
     public Long addSubstance(ActiveSubstDTO activeSubstDTO) throws SubstanceAlreadyExistsException {
 
@@ -94,5 +96,20 @@ public class DefaultActiveSubstService implements ActiveSubstService {
     @Override
     public List<ActiveSubstDTO> getSubstancesByTherapeuticSubgroup(ATCdto atcDto) {
         return null;
+    }
+
+    //Beta-blocker with werapamil or diltiazem (B/p.3 in STOPP & Start criteria)
+    public String betaBlockerRisk1(List<ActiveSubstDTO> activeSubstDTOS) {
+        String message = null;
+        List<ActiveSubst> activeSubsts = activeSubstDTOS.stream()
+                .map(activeSubstDTO -> activeSubstRepository.findActiveSubstsByNameEquals(activeSubstDTO.getName()))
+                .collect(Collectors.toList());
+        boolean isBBPresent = activeSubsts.stream().anyMatch(activeSubst -> activeSubst.getAtcCode().substring(0, 3).equals(BETA_BLOCKER_CODE));
+        boolean isVerapamilPresent = activeSubsts.stream().anyMatch(activeSubst -> activeSubst.getAtcCode().substring(0, 5).equals("C08DA"));
+        boolean isDiltiazemPresent = activeSubsts.stream().anyMatch(activeSubst -> activeSubst.getAtcCode().substring(0, 5).equals("C08DB"));
+        if ((isBBPresent&&isVerapamilPresent) ||(isBBPresent&&isDiltiazemPresent)) {
+            message = "Istnieje ryzyko bloku serca";
+        }
+    return message;
     }
 }
