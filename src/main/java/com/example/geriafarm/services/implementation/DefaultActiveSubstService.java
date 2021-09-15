@@ -6,6 +6,7 @@ import com.example.geriafarm.entities.ATC;
 import com.example.geriafarm.entities.ActiveSubst;
 import com.example.geriafarm.exceptions.GeriaException;
 import com.example.geriafarm.exceptions.GeriaExceptionFactory;
+import com.example.geriafarm.exceptions.MedicineNotFoundException;
 import com.example.geriafarm.exceptions.SubstanceAlreadyExistsException;
 import com.example.geriafarm.repositories.ATCRepository;
 import com.example.geriafarm.repositories.ActiveSubstRepository;
@@ -99,7 +100,7 @@ public class DefaultActiveSubstService implements ActiveSubstService {
     }
 
     //Beta-blocker with werapamil or diltiazem (B/p.3 in STOPP & Start criteria)
-    public String betaBlockerRisk1(List<ActiveSubstDTO> activeSubstDTOS) {
+    public String betaBlockerRisk1(List<ActiveSubstDTO> activeSubstDTOS) throws MedicineNotFoundException {
         String message = null;
         List<ActiveSubst> activeSubsts = activeSubstDTOS.stream()
                 .map(activeSubstDTO -> activeSubstRepository.findActiveSubstsByNameEquals(activeSubstDTO.getName()))
@@ -110,6 +111,6 @@ public class DefaultActiveSubstService implements ActiveSubstService {
         if ((isBBPresent&&isVerapamilPresent) ||(isBBPresent&&isDiltiazemPresent)) {
             message = "Istnieje ryzyko bloku serca";
         }
-    return message;
+        return message;
     }
 }

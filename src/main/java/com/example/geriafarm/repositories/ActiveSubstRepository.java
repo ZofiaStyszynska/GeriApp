@@ -1,6 +1,7 @@
 package com.example.geriafarm.repositories;
 
 import com.example.geriafarm.entities.ActiveSubst;
+import com.example.geriafarm.entities.Medicine;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,5 +10,6 @@ import java.util.UUID;
 
 public interface ActiveSubstRepository extends JpaRepository<ActiveSubst, Long> {
 
-ActiveSubst findActiveSubstsByNameEquals(String activeSubstName);
+public ActiveSubst findActiveSubstsByNameEquals(String activeSubstName);
+List<ActiveSubst> findActiveSubstsByMedicinesContainingAS(Medicine medicine);
 }
