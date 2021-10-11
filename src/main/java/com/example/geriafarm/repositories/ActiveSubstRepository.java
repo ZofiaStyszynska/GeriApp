@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin("http://localhost:4200")
+@RepositoryRestResource(collectionResourceRel = "activeSubst", path = "active-substance")
 public interface ActiveSubstRepository extends JpaRepository<ActiveSubst, Long> {
 
 public ActiveSubst findActiveSubstsByNameEquals(String activeSubstName);
