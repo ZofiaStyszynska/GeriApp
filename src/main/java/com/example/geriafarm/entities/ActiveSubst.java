@@ -15,13 +15,13 @@ public class ActiveSubst {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @Column(unique=true)
     private String atcCode;
-    @ManyToMany
-    private List<Medicine> medicinesContainingAS;
+//    @ManyToMany
+//    private List<Medicine> medicinesContainingAS;
 
 
 
