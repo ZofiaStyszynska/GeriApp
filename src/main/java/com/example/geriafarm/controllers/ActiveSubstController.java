@@ -11,8 +11,8 @@ import java.net.URISyntaxException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
-@RestController
-@RequestMapping("/activesubstances")
+//@RestController
+//@RequestMapping("/activesubstances")
 public class ActiveSubstController {
 
     private final ActiveSubstService activeSubstService;
