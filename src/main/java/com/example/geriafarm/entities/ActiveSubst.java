@@ -3,6 +3,7 @@ package com.example.geriafarm.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,9 +20,9 @@ public class ActiveSubst {
     private Long id;
     private String name;
     @Column(unique=true)
+    @NonNull
     private String atcCode;
-//    @ManyToMany
-//    private List<Medicine> medicinesContainingAS;
+
 
 
 
