@@ -14,4 +14,6 @@ public interface ActiveSubstService {
     ActiveSubst update (Long activeSubstId, ActiveSubst activeSubst);
     void delete (Long activeSubstId);
     List<ActiveSubst> findActiveSubstBySearchCode (String searchCode);
+    List <ActiveSubst> findActiveSubstanceByName (String activeSubstName);
+
 }

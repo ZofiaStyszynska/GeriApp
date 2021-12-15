@@ -2,6 +2,7 @@ package com.example.geriafarm.controllers;
 
 
 import com.example.geriafarm.entities.ActiveSubst;
+import com.example.geriafarm.exeptions.ActiveSubstNotFoundException;
 import com.example.geriafarm.services.ActiveSubstService;
 import com.example.geriafarm.services.implementations.ActiveSubstServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/activesubstances")
+@RequestMapping("/activesubstance")
 public class ActiveSubstController {
 
     private final ActiveSubstServiceImpl activeSubstService;
@@ -34,25 +35,35 @@ public class ActiveSubstController {
 
     }
 
-    @GetMapping("/searchcode/{searchCode}")
+    @GetMapping("/searchcode/{searchcode}")
     public ResponseEntity<List<ActiveSubst>> getActiveSubstBySearchCode(@PathVariable("searchCode") String searchCode) {
         List<ActiveSubst> activeSubsts = activeSubstService.findActiveSubstBySearchCode(searchCode);
+        if(activeSubsts.isEmpty()){
+            throw new ActiveSubstNotFoundException("No substances found.");
+        }
         return new ResponseEntity<>(activeSubsts, HttpStatus.OK);
     }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<ActiveSubst>> getActiveSubstByName(@PathVariable("name") String name) {
+        List<ActiveSubst> activeSubsts = activeSubstService.findActiveSubstanceByName(name);
+        return new ResponseEntity<>(activeSubsts, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
-    public ResponseEntity<ActiveSubst> addActiveSubst(@RequestBody ActiveSubst activeSubst){
+    public ResponseEntity<ActiveSubst> addActiveSubst(@RequestBody ActiveSubst activeSubst) {
         ActiveSubst newActiveSubst = activeSubstService.createActiveSubst(activeSubst);
         return new ResponseEntity<>(activeSubst, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ActiveSubst> addActiveSubst(@PathVariable("id") Long id, @RequestBody ActiveSubst activeSubst){
-        ActiveSubst dbActiveSubst = activeSubstService.update(id, activeSubst );
+    public ResponseEntity<ActiveSubst> updateActiveSubst(@PathVariable("id") Long id, @RequestBody ActiveSubst activeSubst) {
+        ActiveSubst dbActiveSubst = activeSubstService.update(id, activeSubst);
         return new ResponseEntity<>(dbActiveSubst, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteActiveSubst(@PathVariable("id") Long id){
+    public ResponseEntity<?> deleteActiveSubst(@PathVariable("id") Long id) {
         activeSubstService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
 

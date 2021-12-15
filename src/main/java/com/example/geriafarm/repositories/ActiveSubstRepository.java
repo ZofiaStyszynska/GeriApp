@@ -15,8 +15,13 @@ import java.util.UUID;
 @Repository
 public interface ActiveSubstRepository extends JpaRepository<ActiveSubst, Long> {
 
-public ActiveSubst findActiveSubstsByNameEquals(String activeSubstName);
-//List<ActiveSubst> findActiveSubstsByMedicinesContainingAS(Medicine medicine);
-List<ActiveSubst> findActiveSubstsByAtcCodeIsStartingWith (String searchAtcCode);
+    List<ActiveSubst> findActiveSubstsByNameEqualsOrderByName(String activeSubstName);
+
+    boolean existsActiveSubstsByNameEquals(String activeSubstName);
+
+    List<ActiveSubst> findActiveSubstsByAtcCodeIsStartingWith(String searchAtcCode);
+
+    boolean existsByAtcCode(String atcCode);
+
 }
 
