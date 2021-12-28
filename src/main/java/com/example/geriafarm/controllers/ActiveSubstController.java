@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/activesubstance")
 public class ActiveSubstController {
 
@@ -35,8 +36,8 @@ public class ActiveSubstController {
 
     }
 
-    @GetMapping("/searchcode/{searchcode}")
-    public ResponseEntity<List<ActiveSubst>> getActiveSubstBySearchCode(@PathVariable("searchCode") String searchCode) {
+    @GetMapping("/search/{searchcode}")
+    public ResponseEntity<List<ActiveSubst>> getActiveSubstBySearchCode(@PathVariable("searchcode") String searchCode) {
         List<ActiveSubst> activeSubsts = activeSubstService.findActiveSubstBySearchCode(searchCode);
         if(activeSubsts.isEmpty()){
             throw new ActiveSubstNotFoundException("No substances found.");
