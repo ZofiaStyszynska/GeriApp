@@ -71,6 +71,6 @@ public class ActiveSubstServiceImpl implements ActiveSubstService {
         if(!exists){
             throw new ActiveSubstNotFoundException("Not found.");
         }
-        return activeSubstRepository.findActiveSubstsByNameEqualsOrderByName(activeSubstName);
+        return activeSubstRepository.findActiveSubstsByNameContainsOrderByName(activeSubstName);
     }
 }
