@@ -57,9 +57,9 @@ public class ActiveSubstController {
         return new ResponseEntity<>(activeSubst, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<ActiveSubst> updateActiveSubst(@PathVariable("id") Long id, @RequestBody ActiveSubst activeSubst) {
-        ActiveSubst dbActiveSubst = activeSubstService.update(id, activeSubst);
+    @PutMapping("/update")
+    public ResponseEntity<ActiveSubst> updateActiveSubst(@RequestBody ActiveSubst activeSubst) {
+        ActiveSubst dbActiveSubst = activeSubstService.update(activeSubst);
         return new ResponseEntity<>(dbActiveSubst, HttpStatus.OK);
     }
 
