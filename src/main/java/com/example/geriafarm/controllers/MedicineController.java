@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -27,6 +28,11 @@ public class MedicineController {
         List<Medicine> medicines = medicineService.findAllMedicines();
         return new ResponseEntity<>(medicines, HttpStatus.OK);
 
+    }
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Optional<Medicine>> getMedicineById(@PathVariable("id") Long id){
+        Optional<Medicine> medicine = medicineService.findMedicineById(id);
+        return new ResponseEntity<>(medicine, HttpStatus.OK);
     }
     @PostMapping("/add")
     public ResponseEntity<Medicine> addActiveSubst(@RequestBody Medicine medicine) {
