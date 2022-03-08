@@ -20,7 +20,6 @@ public class ActiveSubst {
     private Long id;
     private String name;
     @Column(unique=true)
-    @NonNull
     private String atcCode;
 
 

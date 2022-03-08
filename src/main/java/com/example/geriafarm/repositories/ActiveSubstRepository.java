@@ -17,6 +17,7 @@ import java.util.UUID;
 public interface ActiveSubstRepository extends JpaRepository<ActiveSubst, Long> {
 
     List<ActiveSubst> findActiveSubstsByNameContainsOrderByName(String activeSubstName);
+    List<ActiveSubst> findActiveSubstsByNameStartingWithOrderByName(String activeSubstName);
 
     boolean existsActiveSubstsByNameEquals(String activeSubstName);
 
