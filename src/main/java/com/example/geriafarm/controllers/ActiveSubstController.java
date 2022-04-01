@@ -16,9 +16,9 @@ import java.util.List;
 @RequestMapping("/activesubstance")
 public class ActiveSubstController {
 
-    private final ActiveSubstServiceImpl activeSubstService;
+    private final ActiveSubstService activeSubstService;
 
-    public ActiveSubstController(ActiveSubstServiceImpl activeSubstService) {
+    public ActiveSubstController(ActiveSubstService activeSubstService) {
         this.activeSubstService = activeSubstService;
     }
 
@@ -39,7 +39,7 @@ public class ActiveSubstController {
     @GetMapping("/search/{searchcode}")
     public ResponseEntity<List<ActiveSubst>> getActiveSubstBySearchCode(@PathVariable("searchcode") String searchCode) {
         List<ActiveSubst> activeSubsts = activeSubstService.findActiveSubstBySearchCode(searchCode);
-        if(activeSubsts.isEmpty()){
+        if (activeSubsts.isEmpty()) {
             throw new ActiveSubstNotFoundException("No substances found.");
         }
         return new ResponseEntity<>(activeSubsts, HttpStatus.OK);
@@ -51,10 +51,16 @@ public class ActiveSubstController {
         return new ResponseEntity<>(activeSubsts, HttpStatus.OK);
     }
 
+    @GetMapping("/medid/{medId}")
+    public ResponseEntity<List<ActiveSubst>> getActiveSubstByMedId(@PathVariable("medId") Long medId) {
+        List<ActiveSubst> activeSubsts = activeSubstService.findActiveSubstByMedicineId(medId);
+        return new ResponseEntity<>(activeSubsts, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<ActiveSubst> addActiveSubst(@RequestBody ActiveSubst activeSubst) {
         ActiveSubst newActiveSubst = activeSubstService.createActiveSubst(activeSubst);
-        return new ResponseEntity<>(activeSubst, HttpStatus.CREATED);
+        return new ResponseEntity<>(newActiveSubst, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")

@@ -1,22 +1,17 @@
 package com.example.geriafarm.repositories;
 
 import com.example.geriafarm.entities.ActiveSubst;
-import com.example.geriafarm.entities.Medicine;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
-import java.util.UUID;
 
-//@CrossOrigin("http://localhost:4200")
-//@RepositoryRestResource(collectionResourceRel = "activeSubst", path = "activesubstance")
+
 @Repository
 public interface ActiveSubstRepository extends JpaRepository<ActiveSubst, Long> {
 
-    List<ActiveSubst> findActiveSubstsByNameContainsOrderByName(String activeSubstName);
+
     List<ActiveSubst> findActiveSubstsByNameStartingWithOrderByName(String activeSubstName);
 
     boolean existsActiveSubstsByNameEquals(String activeSubstName);
@@ -25,5 +20,11 @@ public interface ActiveSubstRepository extends JpaRepository<ActiveSubst, Long> 
 
     boolean existsByAtcCode(String atcCode);
 
+   // @Query("select a from ActiveSubst a join a.medicines m where m.medId = :id")
+    @Query("select a from ActiveSubst a join fetch a.medicines m where m.medId = ?1")
+    List<ActiveSubst> findActiveSubstsByMedicineId(Long medId);
+
+
 }
+
 

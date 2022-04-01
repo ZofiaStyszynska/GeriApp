@@ -1,6 +1,7 @@
 package com.example.geriafarm.services.implementations;
 
 import com.example.geriafarm.entities.ActiveSubst;
+import com.example.geriafarm.entities.Medicine;
 import com.example.geriafarm.exeptions.ActiveSubstNotFoundException;
 import com.example.geriafarm.exeptions.AlreadyInTheDBException;
 import com.example.geriafarm.repositories.ActiveSubstRepository;
@@ -69,5 +70,11 @@ public class ActiveSubstServiceImpl implements ActiveSubstService {
             throw new ActiveSubstNotFoundException("Not found.");
         }
         return activeSubstRepository.findActiveSubstsByNameStartingWithOrderByName(activeSubstName);
+    }
+
+    @Override
+    public List<ActiveSubst> findActiveSubstByMedicineId(Long medId) {
+        return activeSubstRepository.findActiveSubstsByMedicineId(medId);
+
     }
 }

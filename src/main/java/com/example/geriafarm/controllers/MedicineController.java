@@ -1,9 +1,8 @@
 package com.example.geriafarm.controllers;
 
 
-import com.example.geriafarm.entities.ActiveSubst;
 import com.example.geriafarm.entities.Medicine;
-import com.example.geriafarm.services.implementations.MedicineServiceImpl;
+import com.example.geriafarm.services.MedicineService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +14,13 @@ import java.util.Optional;
 @CrossOrigin
 @RequestMapping("/medicine")
 
-public class MedicineController {
+public class
 
-    private final MedicineServiceImpl medicineService;
+MedicineController {
 
-    public MedicineController(MedicineServiceImpl medicineService) {
+    private final MedicineService medicineService;
+
+    public MedicineController(MedicineService medicineService) {
         this.medicineService = medicineService;
     }
 
@@ -34,10 +35,26 @@ public class MedicineController {
         Optional<Medicine> medicine = medicineService.findMedicineById(id);
         return new ResponseEntity<>(medicine, HttpStatus.OK);
     }
+    @GetMapping("/asid/{id}")
+    public ResponseEntity<List<Medicine>> getMedicinesByAS(@PathVariable("id") Long asId) {
+        List<Medicine> medicines = medicineService.findMedicinesContainingAS(asId);
+        return new ResponseEntity<>(medicines, HttpStatus.OK);
+    }
     @PostMapping("/add")
     public ResponseEntity<Medicine> addActiveSubst(@RequestBody Medicine medicine) {
         Medicine newMedicine = medicineService.createMedicine(medicine);
-        return new ResponseEntity<>(medicine, HttpStatus.CREATED);
+        return new ResponseEntity<>(newMedicine, HttpStatus.CREATED);
+    }
+    @PutMapping("/update")
+    public ResponseEntity<Medicine> updateActiveSubst(@RequestBody Medicine medicine) {
+        Medicine dbMedicine = medicineService.updateMedicine(medicine);
+        return new ResponseEntity<>(dbMedicine, HttpStatus.CREATED);
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteMedicine(@PathVariable("id") Long id) {
+        medicineService.deleteMedicine(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
 }

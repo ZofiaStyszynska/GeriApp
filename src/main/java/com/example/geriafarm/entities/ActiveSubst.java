@@ -1,12 +1,13 @@
 package com.example.geriafarm.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,9 +19,18 @@ public class ActiveSubst {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String name;
+    @Column
+    private String group;
     @Column(unique=true)
+    @NonNull
     private String atcCode;
+    @ManyToMany(mappedBy = "activeSubsts")
+    @JsonManagedReference(value = "medicine-activeSubst")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Medicine> medicines = new HashSet<>();
 
 
 

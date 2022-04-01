@@ -72,5 +72,11 @@ public class MedicineServiceImpl implements MedicineService {
 
     }
 
+    @Override
+    public List<Medicine> findMedicinesContainingAS(Long asId) {
+        ActiveSubst as = activeSubstRepository.findById(asId).orElse(null);
+        return medicineRepository.findMedicinesByActiveSubstsContaining(as);
+    }
+
 
 }
