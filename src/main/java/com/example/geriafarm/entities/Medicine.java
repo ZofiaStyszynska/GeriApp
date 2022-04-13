@@ -1,9 +1,9 @@
 package com.example.geriafarm.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.lang.Nullable;
 
@@ -12,6 +12,10 @@ import java.util.*;
 
 @Entity
 @Data
+@NoArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "medId")
 public class Medicine {
 
     @Id
@@ -20,14 +24,14 @@ public class Medicine {
     private String tradeName;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "medicine_dosages", joinColumns = @JoinColumn(name = "medicine_id"))
-    @Column(name = "dosage")
-    private Set<String> dosage = new HashSet<>();
+    @Column(name = "dosages")
+    private Set<String> dosages = new HashSet<>();
     @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(name = "medicine_active_substs",
             joinColumns = @JoinColumn(name = "medicine_med_id"),
             inverseJoinColumns = @JoinColumn(name = "active_substs_id"))
         @OrderBy
-    @JsonBackReference(value = "medicine-activeSubst")
+
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<ActiveSubst> activeSubsts = new HashSet<>();

@@ -1,7 +1,6 @@
 package com.example.geriafarm.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import org.springframework.lang.NonNull;
 
@@ -13,6 +12,9 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class ActiveSubst {
 
 
@@ -27,7 +29,9 @@ public class ActiveSubst {
     @NonNull
     private String atcCode;
     @ManyToMany(mappedBy = "activeSubsts")
-    @JsonManagedReference(value = "medicine-activeSubst")
+
+    //@JsonBackReference(value = "medicine-activeSubst")
+    //@JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Medicine> medicines = new HashSet<>();

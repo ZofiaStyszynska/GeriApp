@@ -41,7 +41,7 @@ MedicineController {
         return new ResponseEntity<>(medicines, HttpStatus.OK);
     }
     @PostMapping("/add")
-    public ResponseEntity<Medicine> addActiveSubst(@RequestBody Medicine medicine) {
+    public ResponseEntity<Medicine> addMedicine(@RequestBody Medicine medicine) {
         Medicine newMedicine = medicineService.createMedicine(medicine);
         return new ResponseEntity<>(newMedicine, HttpStatus.CREATED);
     }
@@ -50,8 +50,8 @@ MedicineController {
         Medicine dbMedicine = medicineService.updateMedicine(medicine);
         return new ResponseEntity<>(dbMedicine, HttpStatus.CREATED);
     }
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteMedicine(@PathVariable("id") Long id) {
+    @DeleteMapping("/delete/{medId}")
+    public ResponseEntity<?> deleteMedicine(@PathVariable("medId") Long id) {
         medicineService.deleteMedicine(id);
         return new ResponseEntity<>(HttpStatus.OK);
 

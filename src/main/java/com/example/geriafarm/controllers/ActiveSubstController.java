@@ -6,6 +6,7 @@ import com.example.geriafarm.exeptions.ActiveSubstNotFoundException;
 import com.example.geriafarm.services.ActiveSubstService;
 import com.example.geriafarm.services.implementations.ActiveSubstServiceImpl;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,7 +64,7 @@ public class ActiveSubstController {
         return new ResponseEntity<>(newActiveSubst, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
+    @PutMapping(value = "/update")
     public ResponseEntity<ActiveSubst> updateActiveSubst(@RequestBody ActiveSubst activeSubst) {
         ActiveSubst dbActiveSubst = activeSubstService.update(activeSubst);
         return new ResponseEntity<>(dbActiveSubst, HttpStatus.OK);
