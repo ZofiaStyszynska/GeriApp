@@ -29,7 +29,7 @@ public class InteractionServiceImpl implements InteractionService {
     }
 
     @Override
-    public List<String> findInteractions(List<ActiveSubst> activeSubsts, List<ICD10> ICD10Codes) {
+    public List<String> findInteractions(List<String> ATCCodes, List<String> ICD10Codes) {
         List<String> listOfInteractions = new ArrayList<>();
         for (int i = 0; i < activeSubsts.size(); i++) {
             for (int j = 0; j < ICD10Codes.size(); j++) {

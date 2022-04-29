@@ -9,5 +9,5 @@ import java.util.List;
 public interface InteractionService {
 
     Interactions addInteraction(Interactions interactions);
-    List <String> findInteractions(List<ActiveSubst> activeSubsts, List<ICD10> ICD10Codes);
+    List <String> findInteractions(List<String> ATCCodes, List<String> ICD10Codes);
 }

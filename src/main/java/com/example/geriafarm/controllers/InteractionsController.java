@@ -21,6 +21,7 @@ public class InteractionsController {
     }
 
     @GetMapping
+    @ResponseBody
     public ResponseEntity<List<String>> getInteractions(@RequestParam(value = "activeSubsts")List<ActiveSubst> activeSubsts,
                                                         @RequestParam(value = "ICD10Codes")List<ICD10> ICD10Codes){
         List<String> listOfInteractions = interactionService.findInteractions(activeSubsts, ICD10Codes);
