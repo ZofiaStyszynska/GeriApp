@@ -1,17 +1,26 @@
 package com.example.geriafarm.repositories;
 
 
-import com.example.geriafarm.entities.ActiveSubst;
-import com.example.geriafarm.entities.ICD10;
 import com.example.geriafarm.entities.Interactions;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Set;
 
-public interface InteractionsRepository  extends JpaRepository<Interactions, Long> {
+public interface InteractionsRepository extends JpaRepository<Interactions, Long> {
 
-   boolean existsInteractionsByAtcCodesContainingAndICD10CodesContaining (ActiveSubst actCode, ICD10 icd10);
-   Interactions findInteractionsByAtcCodesContainingAndICD10CodesContaining (ActiveSubst actCode, ICD10 icd10);
+    boolean existsInteractionsByAtcCodesEquals(String atcCode);
+
+    boolean existsInteractionsByICD10CodesEquals(String icd10);
+
+    boolean existsInteractionsByAtcCodesEqualsAndICD10CodesEquals(String actCode, String icd10code);
+    boolean existsInteractionsByAtcCodesIsStartingWithAndICD10CodesIsStartingWith(String actCode, String icd10code);
+
+    Interactions findInteractionsByAtcCodesEqualsAndICD10CodesEquals(String actCode, String icd10code);
+    Interactions findInteractionsByAtcCodesIsStartingWithAndICD10CodesIsStartingWith(String actCode, String icd10code);
+
+    Interactions findInteractionsById (Long id);
+
+    List<Interactions> findAll();
+
 
 }

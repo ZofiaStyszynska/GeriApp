@@ -10,4 +10,5 @@ public interface InteractionService {
 
     Interactions addInteraction(Interactions interactions);
     List <String> findInteractions(List<String> ATCCodes, List<String> ICD10Codes);
+    List<Interactions> findAllInteractions();
 }
