@@ -26,11 +26,12 @@ public class Medicine {
     @CollectionTable(name = "medicine_dosages", joinColumns = @JoinColumn(name = "medicine_id"))
     @Column(name = "dosages")
     private Set<String> dosages = new HashSet<>();
-    @ManyToMany(fetch = FetchType.LAZY)
-        @JoinTable(name = "medicine_active_substs",
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE})
+    @JoinTable(name = "medicine_active_substs",
             joinColumns = @JoinColumn(name = "medicine_med_id"),
             inverseJoinColumns = @JoinColumn(name = "active_substs_id"))
-        @OrderBy
+    @OrderBy
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

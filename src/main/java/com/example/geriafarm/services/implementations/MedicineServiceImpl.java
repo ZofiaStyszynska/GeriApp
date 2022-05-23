@@ -4,10 +4,12 @@ import com.example.geriafarm.entities.ActiveSubst;
 import com.example.geriafarm.entities.Medicine;
 import com.example.geriafarm.repositories.ActiveSubstRepository;
 import com.example.geriafarm.repositories.MedicineRepository;
+import com.example.geriafarm.services.ActiveSubstService;
 import com.example.geriafarm.services.MedicineService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -18,10 +20,12 @@ public class MedicineServiceImpl implements MedicineService {
 
     private final MedicineRepository medicineRepository;
     private final ActiveSubstRepository activeSubstRepository;
+    private final ActiveSubstService activeSubstService;
 
-    public MedicineServiceImpl(MedicineRepository medicineRepository, ActiveSubstRepository activeSubstRepository) {
+    public MedicineServiceImpl(MedicineRepository medicineRepository, ActiveSubstRepository activeSubstRepository, ActiveSubstService activeSubstService) {
         this.medicineRepository = medicineRepository;
         this.activeSubstRepository = activeSubstRepository;
+        this.activeSubstService = activeSubstService;
     }
 
     @Override
@@ -40,19 +44,54 @@ public class MedicineServiceImpl implements MedicineService {
         boolean activeSubstAlreadyExists;
         for (ActiveSubst as : actSubstInAMedicine) {
 
-            activeSubstAlreadyExists = activeSubstRepository.existsActiveSubstsByNameEquals(as.getAtcCode());
-            if (!activeSubstAlreadyExists) activeSubstRepository.save(as);
-
+            activeSubstAlreadyExists = activeSubstRepository.existsActiveSubstsByAtcCodeEquals(as.getAtcCode());
+            if (!activeSubstAlreadyExists) {
+                activeSubstRepository.save(as);
+            } else {
+                //Znajduje subst aktywną w bazie
+                ActiveSubst actSubst = activeSubstRepository.findActiveSubstsByAtcCodeEquals(as.getAtcCode());
+                //Znajduje przyporządkowane leki
+                Set<Medicine> medicinesWithTheActiveSubst = actSubst.getMedicines();
+                //Dodaje nowy lek do przyporządkowanych
+                medicinesWithTheActiveSubst.add(medicine);
+                //Ustawia nowy zestaw leków
+                actSubst.setMedicines(medicinesWithTheActiveSubst);
+                //Zapisuje do bazy
+                medicineRepository.save(medicine);
+                medicine.getActiveSubsts().add(actSubst);
+                //activeSubstService.update(actSubst);
+            }
         }
 
     }
 
+    public boolean activeSubstAlereadyInDB(ActiveSubst activeSubst) {
+        return activeSubstRepository.existsActiveSubstsByAtcCodeEquals(activeSubst.getAtcCode());
+    }
+
+
     @Override
     public Medicine createMedicine(Medicine medicine) {
 
-        saveActiveSubstIfNotInDB(medicine);
+        Medicine dbMedicine = new Medicine();
+        dbMedicine.setTradeName(medicine.getTradeName());
+        dbMedicine.setDosages(medicine.getDosages());
+        Set<ActiveSubst> activeSubstInDBMedicine = new HashSet<>();
 
-        return medicineRepository.save(medicine);
+        Set<ActiveSubst> actSubstInAMedicine = medicine.getActiveSubsts();
+        for (ActiveSubst as : actSubstInAMedicine) {
+            if (!activeSubstAlereadyInDB(as)) {
+                activeSubstRepository.save(as);
+            }
+            as = activeSubstRepository.findActiveSubstsByAtcCodeEquals(as.getAtcCode());
+            //as.getMedicines().add(medicine);
+            activeSubstInDBMedicine.add(as);
+        }
+
+        dbMedicine.setActiveSubsts(activeSubstInDBMedicine);
+
+
+        return medicineRepository.save(dbMedicine);
 
     }
 

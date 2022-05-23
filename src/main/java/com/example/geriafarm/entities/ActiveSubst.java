@@ -25,13 +25,12 @@ public class ActiveSubst {
     private String name;
     @Column
     private String group;
-    @Column(unique=true)
+    @Column
     @NonNull
     private String atcCode;
-    @ManyToMany(mappedBy = "activeSubsts")
+    @ManyToMany(mappedBy = "activeSubsts", cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE})
 
-    //@JsonBackReference(value = "medicine-activeSubst")
-    //@JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Medicine> medicines = new HashSet<>();

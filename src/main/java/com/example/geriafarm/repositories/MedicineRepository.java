@@ -12,4 +12,6 @@ import java.util.UUID;
 public interface MedicineRepository extends JpaRepository<Medicine, Long> {
 
 List<Medicine> findMedicinesByActiveSubstsContaining(ActiveSubst activeSubst);
+
+
 }
