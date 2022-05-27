@@ -84,7 +84,6 @@ public class MedicineServiceImpl implements MedicineService {
                 activeSubstRepository.save(as);
             }
             as = activeSubstRepository.findActiveSubstsByAtcCodeEquals(as.getAtcCode());
-            //as.getMedicines().add(medicine);
             activeSubstInDBMedicine.add(as);
         }
 
@@ -97,12 +96,26 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Override
     public Medicine updateMedicine(Medicine medicine) {
-        Set<ActiveSubst> activeSubsts = medicine.getActiveSubsts();
-        for (ActiveSubst as : activeSubsts) {
-            activeSubstRepository.save(as);
+
+        Medicine dbMedicine = new Medicine();
+        dbMedicine.setMedId(medicine.getMedId());
+        dbMedicine.setTradeName(medicine.getTradeName());
+        dbMedicine.setDosages(medicine.getDosages());
+        Set<ActiveSubst> activeSubstInDBMedicine = new HashSet<>();
+
+        Set<ActiveSubst> actSubstInAMedicine = medicine.getActiveSubsts();
+        for (ActiveSubst as : actSubstInAMedicine) {
+            if (!activeSubstAlereadyInDB(as)) {
+                activeSubstRepository.save(as);
+            }
+            as = activeSubstRepository.findActiveSubstsByAtcCodeEquals(as.getAtcCode());
+            activeSubstInDBMedicine.add(as);
         }
 
-        return medicineRepository.save(medicine);
+        dbMedicine.setActiveSubsts(activeSubstInDBMedicine);
+
+
+        return medicineRepository.save(dbMedicine);
     }
 
     @Override
