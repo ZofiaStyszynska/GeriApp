@@ -1,29 +1,21 @@
 package com.example.geriafarm.services;
 
-import com.example.geriafarm.DTO.ATCdto;
-import com.example.geriafarm.DTO.ActiveSubstDTO;
-import com.example.geriafarm.exceptions.GeriaException;
-import com.example.geriafarm.exceptions.SubstanceAlreadyExistsException;
+import com.example.geriafarm.entities.ActiveSubst;
+import com.example.geriafarm.entities.Medicine;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+
 
 public interface ActiveSubstService {
 
-    List<ActiveSubstDTO> getSubstances();
+    ActiveSubst createActiveSubst (ActiveSubst activeSubst);
+    List<ActiveSubst> findAllActiveSubst();
+    ActiveSubst findActiveSubstById(Long activeSubstId);
+    ActiveSubst update (ActiveSubst activeSubst);
+    void delete (Long activeSubstId);
+    List<ActiveSubst> findActiveSubstBySearchCode (String searchCode);
+    List <ActiveSubst> findActiveSubstanceByName (String activeSubstName);
+    List<ActiveSubst> findActiveSubstByMedicineId (Long medId);
 
-    Long addSubstance(ActiveSubstDTO activeSubstDTO) throws SubstanceAlreadyExistsException;
-
-    Optional<ActiveSubstDTO> getSubstanceById(Long id);
-
-    ActiveSubstDTO updateSubstance(Long id, ActiveSubstDTO activeSubstDTO);
-
-    ActiveSubstDTO getSubstanceByATC(ATCdto atcDto);
-
-    List<ActiveSubstDTO> getSubstancesByMedicine(Long medicineId);
-
-    List<ActiveSubstDTO> getSubstancesByAnatomicalGroup(ATCdto atcDto);
-
-    List<ActiveSubstDTO> getSubstancesByTherapeuticSubgroup(ATCdto atcDto);
 }

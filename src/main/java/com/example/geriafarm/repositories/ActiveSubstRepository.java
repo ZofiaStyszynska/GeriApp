@@ -1,19 +1,32 @@
 package com.example.geriafarm.repositories;
 
 import com.example.geriafarm.entities.ActiveSubst;
-import com.example.geriafarm.entities.Medicine;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
 
-@CrossOrigin("http://localhost:4200")
-@RepositoryRestResource(collectionResourceRel = "activeSubst", path = "active-substance")
+
+@Repository
 public interface ActiveSubstRepository extends JpaRepository<ActiveSubst, Long> {
 
-public ActiveSubst findActiveSubstsByNameEquals(String activeSubstName);
-//List<ActiveSubst> findActiveSubstsByMedicinesContainingAS(Medicine medicine);
+
+    List<ActiveSubst> findActiveSubstsByNameStartingWithOrderByName(String activeSubstName);
+
+    boolean existsActiveSubstsByNameEquals(String activeSubstName);
+    boolean existsActiveSubstsByAtcCodeEquals (String atcCode);
+
+    List<ActiveSubst> findActiveSubstsByAtcCodeIsStartingWith(String searchAtcCode);
+
+    boolean existsByAtcCode(String atcCode);
+    ActiveSubst findActiveSubstsByAtcCodeEquals(String atcCode);
+
+   // @Query("select a from ActiveSubst a join a.medicines m where m.medId = :id")
+    @Query("select a from ActiveSubst a join fetch a.medicines m where m.medId = ?1")
+    List<ActiveSubst> findActiveSubstsByMedicineId(Long medId);
+
+
 }
+
+

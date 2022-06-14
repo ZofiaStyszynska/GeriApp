@@ -1,18 +1,20 @@
 package com.example.geriafarm.controllers;
 
-import com.example.geriafarm.DTO.ActiveSubstDTO;
-import com.example.geriafarm.exceptions.SubstanceAlreadyExistsException;
+
+import com.example.geriafarm.entities.ActiveSubst;
+import com.example.geriafarm.exeptions.ActiveSubstNotFoundException;
 import com.example.geriafarm.services.ActiveSubstService;
+import com.example.geriafarm.services.implementations.ActiveSubstServiceImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/activesubstances")
+@CrossOrigin
+@RequestMapping("/activesubstance")
 public class ActiveSubstController {
 
     private final ActiveSubstService activeSubstService;
@@ -21,26 +23,59 @@ public class ActiveSubstController {
         this.activeSubstService = activeSubstService;
     }
 
-    @PostMapping
-    public ResponseEntity addActiveSubst(@RequestBody ActiveSubstDTO activeSubstDTO) throws SubstanceAlreadyExistsException, URISyntaxException, SQLIntegrityConstraintViolationException {
-
-        Long activeSubstId = activeSubstService.addSubstance(activeSubstDTO);
-
-        ResponseEntity responseEntity = ResponseEntity
-                .created(new URI("/activesubstances/" + activeSubstId))
-                .body(activeSubstDTO);
-
-        return responseEntity;
-
-    }
-
-
     @GetMapping
-    public List<ActiveSubstDTO> getActiveSubsts() {
-        return activeSubstService.getSubstances();
+    public ResponseEntity<List<ActiveSubst>> getAllActiveSubst() {
+        List<ActiveSubst> activeSubsts = activeSubstService.findAllActiveSubst();
+        return new ResponseEntity<>(activeSubsts, HttpStatus.OK);
+
     }
 
-    ;
+    @GetMapping("/id/{id}")
+    public ResponseEntity<ActiveSubst> getActiveSubstById(@PathVariable("id") Long id) {
+        ActiveSubst activeSubst = activeSubstService.findActiveSubstById(id);
+        return new ResponseEntity<>(activeSubst, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/search/{searchcode}")
+    public ResponseEntity<List<ActiveSubst>> getActiveSubstBySearchCode(@PathVariable("searchcode") String searchCode) {
+        List<ActiveSubst> activeSubsts = activeSubstService.findActiveSubstBySearchCode(searchCode);
+        if (activeSubsts.isEmpty()) {
+            throw new ActiveSubstNotFoundException("No substances found.");
+        }
+        return new ResponseEntity<>(activeSubsts, HttpStatus.OK);
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<ActiveSubst>> getActiveSubstByName(@PathVariable("name") String name) {
+        List<ActiveSubst> activeSubsts = activeSubstService.findActiveSubstanceByName(name);
+        return new ResponseEntity<>(activeSubsts, HttpStatus.OK);
+    }
+
+    @GetMapping("/medid/{medId}")
+    public ResponseEntity<List<ActiveSubst>> getActiveSubstByMedId(@PathVariable("medId") Long medId) {
+        List<ActiveSubst> activeSubsts = activeSubstService.findActiveSubstByMedicineId(medId);
+        return new ResponseEntity<>(activeSubsts, HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<ActiveSubst> addActiveSubst(@RequestBody ActiveSubst activeSubst) {
+        ActiveSubst newActiveSubst = activeSubstService.createActiveSubst(activeSubst);
+        return new ResponseEntity<>(newActiveSubst, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/update")
+    public ResponseEntity<ActiveSubst> updateActiveSubst(@RequestBody ActiveSubst activeSubst) {
+        ActiveSubst dbActiveSubst = activeSubstService.update(activeSubst);
+        return new ResponseEntity<>(dbActiveSubst, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteActiveSubst(@PathVariable("id") Long id) {
+        activeSubstService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
 
 }
+

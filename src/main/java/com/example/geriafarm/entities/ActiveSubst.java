@@ -1,27 +1,40 @@
 package com.example.geriafarm.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class ActiveSubst {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String name;
-    @Column(unique=true)
+    @Column
+    private String group;
+    @Column
+    @NonNull
     private String atcCode;
-//    @ManyToMany
-//    private List<Medicine> medicinesContainingAS;
+    @ManyToMany(mappedBy = "activeSubsts", cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE})
+
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Medicine> medicines = new HashSet<>();
+
 
 
 
