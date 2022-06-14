@@ -38,17 +38,14 @@ public class InteractionServiceImpl implements InteractionService {
         List<String> listOfInteractions = new ArrayList<>();
 
 
-
-        for (int i = 0; i <atcCodes.size(); i++) {
+        for (int i = 0; i < atcCodes.size(); i++) {
             for (int j = 0; j < icd10Codes.size(); j++) {
 
 
                 if (interactionsRepository.existsInteractionsByAtcCodesEqualsAndICD10CodesEquals
-                                    //existsInteractionsByAtcCodesIsStartingWithAndICD10CodesIsStartingWith
-                                (atcCodes.get(i), icd10Codes.get(j))) {
+                        (atcCodes.get(i), icd10Codes.get(j))) {
                     Interactions interactions = interactionsRepository.findInteractionsByAtcCodesEqualsAndICD10CodesEquals
-                                    //interactionsRepository.findInteractionsByAtcCodesIsStartingWithAndICD10CodesIsStartingWith
-                                            (atcCodes.get(i), icd10Codes.get(j));
+                            (atcCodes.get(i), icd10Codes.get(j));
 
                     listOfInteractions.add(interactions.getDescription());
 
@@ -60,8 +57,6 @@ public class InteractionServiceImpl implements InteractionService {
 
         return listOfInteractions;
     }
-
-
 
 
 }

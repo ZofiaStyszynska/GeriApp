@@ -73,32 +73,21 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public Medicine createMedicine(Medicine medicine) {
 
-        Medicine dbMedicine = new Medicine();
-        dbMedicine.setTradeName(medicine.getTradeName());
-        dbMedicine.setDosages(medicine.getDosages());
-        Set<ActiveSubst> activeSubstInDBMedicine = new HashSet<>();
-
-        Set<ActiveSubst> actSubstInAMedicine = medicine.getActiveSubsts();
-        for (ActiveSubst as : actSubstInAMedicine) {
-            if (!activeSubstAlereadyInDB(as)) {
-                activeSubstRepository.save(as);
-            }
-            as = activeSubstRepository.findActiveSubstsByAtcCodeEquals(as.getAtcCode());
-            activeSubstInDBMedicine.add(as);
-        }
-
-        dbMedicine.setActiveSubsts(activeSubstInDBMedicine);
-
-
-        return medicineRepository.save(dbMedicine);
+        return medicineRepository.save(createNewMedicine(medicine, null));
 
     }
 
     @Override
     public Medicine updateMedicine(Medicine medicine) {
 
+        Long medId = medicine.getMedId();
+
+        return medicineRepository.save(createNewMedicine(medicine, medId));
+    }
+
+    private Medicine createNewMedicine(Medicine medicine, Long medId) {
         Medicine dbMedicine = new Medicine();
-        dbMedicine.setMedId(medicine.getMedId());
+        dbMedicine.setMedId(medId);
         dbMedicine.setTradeName(medicine.getTradeName());
         dbMedicine.setDosages(medicine.getDosages());
         Set<ActiveSubst> activeSubstInDBMedicine = new HashSet<>();
@@ -113,9 +102,7 @@ public class MedicineServiceImpl implements MedicineService {
         }
 
         dbMedicine.setActiveSubsts(activeSubstInDBMedicine);
-
-
-        return medicineRepository.save(dbMedicine);
+        return dbMedicine;
     }
 
     @Override
