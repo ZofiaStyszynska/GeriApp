@@ -14,7 +14,7 @@ import javax.persistence.Id;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ICD10 {
+public class Disease {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

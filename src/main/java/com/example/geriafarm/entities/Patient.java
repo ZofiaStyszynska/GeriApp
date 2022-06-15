@@ -19,10 +19,10 @@ public class Patient {
     @Enumerated (EnumType.STRING)
     private Sex sex;
     private double weight;
-    @ManyToMany
+    @OneToMany
     private Set<Medicine> takenMedicines = new HashSet<>();
     @OneToMany
-    private Set<ICD10> diseases = new HashSet<>();
+    private Set<Disease> diseases = new HashSet<>();
     @Nullable
     private double creatinineLevel;
     //TODO choroby wg klas. ICD10

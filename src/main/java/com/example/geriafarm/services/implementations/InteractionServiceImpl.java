@@ -1,7 +1,5 @@
 package com.example.geriafarm.services.implementations;
 
-import com.example.geriafarm.entities.ActiveSubst;
-import com.example.geriafarm.entities.ICD10;
 import com.example.geriafarm.entities.Interactions;
 import com.example.geriafarm.repositories.InteractionsRepository;
 import com.example.geriafarm.services.InteractionService;
